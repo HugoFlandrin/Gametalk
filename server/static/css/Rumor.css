@@ -1,0 +1,565 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: url("../img/BackgroundgameTalk.png") no-repeat center center fixed;
+    background-size: cover;
+}
+
+.news{
+    height: 50vh;
+    width: 150vh;
+    border: solid 1px;
+    border-radius: 10px;
+    object-fit: cover;
+    object-position: center;
+    position: relative;
+    margin: 2%;
+}
+
+.rumor-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #514f4f;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover; 
+    background-position: center; 
+}
+
+.rumor-content {
+    position: relative; 
+    z-index: 1;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.rumor-card {
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center; */
+    background-color: #413d3d;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    animation: fade-in 0.5s ease; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.rumor-card:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.rumor-card img {
+    width: 100%;
+    height: 70vh;
+    border-radius: 8px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.rumor-card p {
+    font-size: 16px;
+    color: white;
+    margin-top: 10px;
+    flex: 1;
+}
+
+#rumorButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+#rumorButton:hover {
+    background-color: #0056b3;
+}
+
+.main-content {
+    flex: 1;
+}
+
+.LogoGameTalk {
+    width: 15%;
+}
+
+.logoHeader,
+.logoHeaderMenu {
+    cursor: pointer;
+    height: 5vh;
+    width: auto;
+}
+
+.logoHeaderMenu {
+    transform: translateY(15%);
+}
+
+.header {
+    background-color: black;
+    min-height: 10vh; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%; 
+    box-sizing: border-box;
+}
+
+.left-section,
+.right-section {
+   display: flex;
+    align-items: center;
+}
+
+.title-top {
+    color: aliceblue;
+    font-family: "Jacques Francois", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 2em;
+}
+
+.title-top::first-letter {
+    color: red;
+}
+
+.secondLetter {
+    color: red;
+}
+
+.logoHeader {
+    margin-left: 2vh;
+}
+
+
+.footerBottom {
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    transform: translateY(700%);
+}
+
+.sidebar,
+.sidebarMenu {
+    height: 100%;
+    width: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #201e1e;
+    padding-top: 1%;
+    transition: width 0.3s;
+    border-radius: 10px;
+    border: solid 2px;
+}
+
+.sidebarMenu.expanded {
+    width: 9%;
+    border-radius: 10px;
+}
+
+.sidebar .dropdown-btn,
+.sidebarMenu .dropdown-btn {
+    width: 50%;
+    padding: 16%;
+    font-size: 16px;
+    text-align: left;
+    background-color: #201e1e;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.sidebarMenu .dropdown-container {
+    display: none;
+    background-color: #201e1e;
+}
+
+.sidebarMenu .dropdown-container a {
+    padding: 12% 16%;
+    text-decoration: none;
+    font-size: 14px;
+    color: white;
+    display: block;
+}
+
+.sidebar .dropdown-btn.active {
+    background-color: #201e1e;
+}
+
+.sidebarMenu .dropdown-container.show {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+
+.visible {
+    display: flex;
+}
+
+.mainBtn,
+.mainBtnLog {
+    display: flex;
+    justify-content: center;
+    color: rgb(23, 23, 24);
+    background-color: rgb(125, 128, 129);
+    border-radius: 10px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2em;
+    margin: 4vh;
+    width: auto;
+}
+
+.mainBtn:hover {
+    transform: scale(1.1);
+}
+
+.sidebar-2,
+.sidebarMenu-2 {
+    height: 100%;
+    width: auto;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #201e1e;
+    padding-top: 1%;
+    transition: width 0.3s;
+    border-radius: 10px;
+    border: solid 2px;
+}
+
+.sidebarMenu-2.expanded {
+    width: 9%;
+    border-radius: 10px;
+}
+
+.sidebar-2 .dropdown-btn,
+.sidebarMenu-2 .dropdown-btn {
+    width: 50%;
+    padding: 16%;
+    font-size: 16px;
+    text-align: left;
+    background-color: #201e1e;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.sidebarMenu-2 .dropdown-container {
+    display: none;
+    background-color: #201e1e;
+}
+
+.sidebarMenu-2 .dropdown-container a {
+    padding: 12% 16%;
+    text-decoration: none;
+    font-size: 14px;
+    color: white;
+    display: block;
+}
+
+.sidebar-2 .dropdown-btn.active {
+    background-color: #201e1e;
+}
+
+.sidebarMenu-2 .dropdown-container.show {
+    display: block;
+}
+
+.mainBtnLog {
+    transform: translateY(50vh);
+}
+
+.material-symbols-outlined {
+    color: aliceblue;
+}
+
+.search {
+    --padding: 2vh;
+    width: max-content;
+    display: flex;
+    align-items: center;
+    padding: var(--padding);
+    border-radius: 28px;
+    background: #313131;
+    transition: background 0.25s;
+    margin: 0 auto;
+}
+
+.search:focus-within {
+    box-shadow: 0 0 2px rgb(241, 238, 238);
+}
+
+.search-input {
+    font-size: 16px;
+    font-family: 'Times New Roman', Times, serif;
+    color: #eeeef3;
+    margin-left: var(--padding);
+    outline: none;
+    border: none;
+    background: transparent;
+}
+
+.search-input::placeholder,
+.search-icon {
+    color: #f0e9e9;
+}
+
+
+.footerBottom {
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    width: 100%;
+    background-color: #201e1e;
+    border-top: 1px solid #313131;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Times New Roman', Times, serif;
+}
+  
+
+.container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.title-top {
+    color: #ff4500;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.mainContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 80vh;
+}
+
+.addPost {
+    font-size: 2em;
+    color: white;
+    font-family: 'Lobster Two', cursive;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.addPost:hover {
+    transform: scale(1.1);
+    color: #e03e00;
+}
+
+.cardContainer {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+.card {
+    background-color: rgba(50, 50, 50, 0.9);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: #fff;
+    animation: fadeInUp 0.5s ease-out;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.card .content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cardHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cardProfileImg {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.cardHeaderText {
+    display: flex;
+    flex-direction: column;
+}
+
+.NameUser {
+    color: #ff4500;
+    margin: 0;
+}
+
+.DatePost {
+    color: #ccc;
+    margin: 0;
+}
+
+.textCardContainer {
+    font-size: 1.5em;
+    margin: 10px 0;
+    color: #fff;
+}
+
+.cardFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.likeAndUnLike,
+.response {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
+
+.likeAndUnLike:hover,
+.response:hover {
+    transform: scale(1.2);
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.popup-content {
+    background-color: #444;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #555;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 20px;
+    color: #fff;
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.popup-close {
+    color: #fff;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.popup-close:hover,
+.popup-close:focus {
+    color: #ff4500;
+}
+
+.popupTitle {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.response-input-title,
+.response-input,
+.category-select,
+.post-button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+}
+
+.post-button {
+    background-color: #ff4500;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.post-button:hover {
+    background-color: #e03e00;
+    transform: scale(1.05);
+}
+
+.delete-btn {
+    cursor: pointer;
+    color: red;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+/* Animations */
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+

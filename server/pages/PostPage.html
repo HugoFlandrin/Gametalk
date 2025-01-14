@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jacques+Francois&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/PostPage.css">
+    <link rel="stylesheet" href="../static/css/header.css">
+    <link rel="stylesheet" href="../static/css/footer.css">
+    <title>ThemeSelection</title>
+</head>
+
+<body>
+    
+    {{ template "header"}}
+
+    <div class="mainContent">
+        <h1 class="titleContent">HOT TOPICS 👇 </h1>
+        <img class="response" id="response" src="../static/img/ajouter-un-bouton.png" alt="addPost">
+        <div class="addPost">Add a post</div>
+        <div class="cardContainer">
+
+        </div>
+    </div>
+
+    <div class="footerBottom">
+        <h3 class="title">
+            <a class="title" href="https://www.ynov.com/">Ynov campus </a>| © Game Talk
+        </h3>
+    </div>
+
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="popup-close" id="popup-close">&times;</span>
+            <h2 class="popupTitle">Subject :</h2>
+            <input type="text" id="response-input-title" class="response-input-title" placeholder="Your title...">
+            <input type="text" id="response-input" class="response-input" placeholder="Your subject...">
+            <select id="category-select" class="category-select">
+            </select>
+            <button class="post-button" id="post-button">Send</button>
+        </div>
+    </div>
+
+    <script type="module" src="../static/js/PostPage.js"></script>
+    <script>
+        let select = document.getElementById("category-select")
+
+        fetch('http://localhost:8081/api/getCategories', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => response.json()).then(data => {
+            data.forEach(categorie => {
+                let option = document.createElement("option")
+                option.value = categorie.id
+                option.innerHTML = categorie.name
+                select.appendChild(option)
+            });
+            console.log(data)
+        }).catch(error => console.error('Error:', error));
+
+    </script>
+</body>
+
+</html>

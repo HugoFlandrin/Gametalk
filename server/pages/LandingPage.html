@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jacques+Francois&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="../static/css/LandingPage.css">
+    <link rel="stylesheet" href="../static/css/header.css">
+    <link rel="stylesheet" href="../static/css/footer.css">
+</head>
+
+<body>
+    
+    {{ template "header" }}
+
+    <div class="main-content">
+
+        <div class="actuContainer">
+            <div class="card-box" id="cardBox">
+                <div class="card-box-mini" id="cardBoxMini">
+                    <button class="myBtn" id="btn1"></button>
+                    <p class="text" id="cardText">
+                    </p>
+                    <button class="myBtn" id="btn2"></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="card" id="wiki">
+                <h2>Wiki</h2>
+            </div>
+
+            <div class="card-1" id="TournoiPage">
+                <h2>Tournament</h2>
+            </div>
+
+            <div class="card-2" id="AvenirPage">
+                <h2>Coming soon</h2>
+            </div>
+
+            <div class="card-3" id="rumor">
+                <h2>Rumor</h2>
+            </div>
+
+            <div class="card-4" id="Game">
+                <h2>Games</h2>
+            </div>
+
+            <div class="card-5" id="Message">
+                <h2>Message✉</h2>
+            </div>
+        </div>
+
+        <div class="line-with-title">
+            <span><h3 class="title-top"><span class="red">Latest </span> <span class="white"> News</span></h3></span>
+        </div>
+
+        <div class="infoContainer">
+            <div class="cardInfo">
+
+                <div class="one-img">
+                    <img class="card-img" src="/static/img/VRising.png" alt="V Rising">
+                </div>
+                <div class="one-txt">
+                    <h3 class="info-title">V RISING COMING SOON TO PS5</h3>
+                    <p class="info-body">
+                        After a huge success on Steam, the vampires from Var...
+                        <BR>
+                        📅 May 22, 2024
+                    </p>
+                </div>
+
+                <div class="two-img">
+                    <img class="card-img-1" src="/static/img/GTA.png" alt="V Rising">
+                </div>
+                <div class="two-txt">
+                    <h3 class="info-title">TAKE-TWO CONFIANT ABOUT GTA 6</h3>
+                    <p class="info-body">
+                        The fall 2025 release window for G...
+                        <BR>
+                        📅 May 21, 2024
+                    </p>
+                </div>
+
+                <div class="three-img">
+                    <img class="card-img-2" src="/static/img/EldenRing.png" alt="V Rising">
+                </div>
+                <div class="three-txt">
+                    <h3 class="info-title">NEW TRAILER FOR ELDEN RING</h3>
+                    <p class="info-body">
+                        With its release fast approaching, communa...
+                        <BR>
+                        📅 May 19, 2024
+                    </p>
+                </div>
+
+                <div class="four"></div>
+
+                <div class="five">
+                    <h3 class="info-title">PS5 PORTABLE COMING SOON?</h3>
+                    <p class="info-body">
+                        In an ever-changing video game market, Japanese giant
+                        Sony is said to be developing a new handheld console. It's...
+                        <BR>
+                        📅 May 17, 2024
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="footerBottom">
+        <h3 class="title">
+            <a class="title" href="https://www.ynov.com/">Ynov campus </a>| © Game Talk
+        </h3>
+    </div>
+
+    <script type="module" src="../static/js/LandingPage.js"></script>
+    <script>
+        function Mode(){
+            if (getCookie("session_id") != null && getCookie("session_id") != 0){
+                window.location.href = "/ProfilePage"
+            } else {
+                window.location.href = "/Login"
+            }
+        }
+
+        function LogOut(){
+            window.location.href = "/"
+            setCookie("session_id", '', 24)
+        }
+
+        function LogIn(){
+            window.location.href = "/Login"
+        }
+
+        function getCookie(name) {
+            const regex = new RegExp(`(?:^|;\\s*)${name}=([^;]*)`);
+            const match = regex.exec(document.cookie);
+            return match ? match[1].replace(/\s+/g, '') : null;
+        }
+
+        function setCookie(name, value, days) {
+            let expires = "";
+            if (days) {
+                let date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+        
+        const wiki = document.getElementById("wiki")
+        wiki.addEventListener("click", function(){
+            if (getCookie("session_id") != null && getCookie("session_id") != 0){
+                window.location.href = "/WikiPage"
+            } else {
+                window.location.href = "/Login"
+            }
+                    
+        })
+
+        const TournoiPage = document.getElementById("TournoiPage")
+        TournoiPage.addEventListener("click", function(){
+            if (getCookie("session_id") != null && getCookie("session_id") != 0){
+                window.location.href = "/TournoiPage"
+            } else {
+                window.location.href = "/Login"
+            }
+        })
+
+        const AvenirPage = document.getElementById("AvenirPage")
+        AvenirPage.addEventListener("click", function(){
+            if (getCookie("session_id") != null && getCookie("session_id") != 0){
+                window.location.href = "/AvenirPage"
+            } else {
+                window.location.href = "/Login"
+            }
+        })
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jacques+Francois&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="../static/css/UserPage.css">
+    <link rel="stylesheet" href="../static/css/header.css">
+    <link rel="stylesheet" href="../static/css/footer.css">
+</head>
+
+<body>
+    
+    {{ template "header" }}
+
+    <div class="userInfo">
+        <div class="profileHeader">
+            <img class="profileImg" id="profileImg" alt="Profile Picture">
+            <div class="userDetails">
+                <h1 class="username" id="username">Username</h1>
+                <p class="creationDate" id="creationDate">Account created on: 2024-06-10</p>
+            </div>
+        </div>
+        <div class="bioSection">
+            <h2>Biography</h2>
+            <p class="biography" id="biography">This is a short biography about the user. It can include interests, background information, and other personal details.</p>
+        </div>
+        <div class="postsSection">
+            <h2>Posts</h2>
+            <p class="postCount" id="postCount">42 publications</p>
+            <p class="commentCount" id="commentCount">42 comments</p>
+        </div>
+    </div>
+
+    <div class="contentToggle">
+        <button id="postsButton" class="active">Publications</button>
+        <button id="commentsButton">Comments</button>
+    </div>
+
+    <div class="contentDisplay">
+        <div id="postsContainer">
+        </div>
+    </div>
+
+    {{ template "footer" }}
+
+    <script src="/static/js/OtherUser.js"></script>
+</body>
+
+</html>

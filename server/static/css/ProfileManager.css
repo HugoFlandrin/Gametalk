@@ -1,0 +1,108 @@
+body {
+    font-family: 'Jacques Francois', serif;
+    background: url("../img/BackgroundgameTalk.png") no-repeat center center fixed;
+    background-size: cover;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.profile-image {
+    margin: 20px 0;
+    transition: transform 0.3s ease;
+}
+
+.profile-image img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 3px solid #ffffff;
+}
+
+.profile-image img:hover {
+    transform: scale(1.1);
+}
+
+#upload-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#upload-form input[type="file"] {
+    margin-bottom: 10px;
+}
+
+#upload-form button {
+    padding: 10px 20px;
+    background-color: #ff4500;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#upload-form button:hover {
+    background-color: #ff6347;
+}
+
+.CRUD-profile {
+    width: 100%;
+    max-width: 600px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.CRUD-profile form {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.CRUD-profile button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff4500;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.CRUD-profile button:hover {
+    background-color: #ff6347;
+}
+
+#delete-account {
+    background-color: #dc3545;
+}
+
+#delete-account:hover {
+    background-color: #c82333;
+}

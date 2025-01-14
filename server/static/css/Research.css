@@ -1,0 +1,378 @@
+/* body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: url("../img/BackgroundgameTalk.png") no-repeat center center fixed;
+    background-size: cover;
+}
+
+.cardContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.card {
+    max-width: 1000px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #fff;
+}
+
+.title {
+    color: aliceblue;
+    font-family: "Jacques Francois", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.titleContent, .textCardContainer, .NameUser, .DatePost {
+    color: white;
+    font-family: "Lobster Two", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.card {
+    height: auto;
+    width: 150vh;
+    background-color: #D9D9D9;
+    border-radius: 20px;
+}
+
+.content {
+    margin: 1%;
+}
+
+.cardProfileImg {
+    height: 10vh;
+    margin: 0.5%;
+}
+
+.NameUser {
+    color: black;
+    margin: 0; 
+}
+
+.DatePost {
+    color: #201e1e;
+    margin: 0; 
+}
+
+.cardHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+}
+
+.cardHeaderText {
+    display: flex;
+    flex-direction: column;
+}
+
+.textCardContainer {
+    display: flex;
+    justify-content: center;
+    font-size: 2em;
+    color: black;
+}
+
+.likeAndUnLike,.response {
+    height: 5vh;
+    cursor: pointer;
+}
+
+.cardFooter{
+    display: flex;
+    justify-content: space-between;
+}
+
+.no-posts-message {
+    padding: 10px;
+    color: red;
+    font-size: 36px;
+    margin-top: 220px;
+} */
+
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: url("../img/BackgroundgameTalk.png") no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Lobster Two', cursive;
+    color: #fff;
+}
+
+.titleContent {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 3em;
+    color: white;
+    animation: fadeInDown 1s ease-out;
+}
+
+.mainContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 80vh;
+}
+
+.addPost {
+    font-size: 2em;
+    color: white;
+    font-family: 'Lobster Two', cursive;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.addPost:hover {
+    transform: scale(1.1);
+    color: #e03e00;
+}
+
+.cardContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.card {
+    max-width: 1000px;
+    background-color: rgba(50, 50, 50, 0.9);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: #fff;
+    animation: fadeInUp 0.5s ease-out;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: auto;
+    width: 150vh;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.card .content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cardHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cardProfileImg {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.cardHeaderText {
+    display: flex;
+    flex-direction: column;
+}
+
+.NameUser {
+    color: #ff4500;
+    margin: 0;
+}
+
+.DatePost {
+    color: #ccc;
+    margin: 0;
+}
+
+.textCardContainer {
+    font-size: 1.5em;
+    margin: 10px 0;
+    color: #fff;
+}
+
+.cardFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.likeAndUnLike,
+.response {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
+
+.likeAndUnLike:hover,
+.response:hover {
+    transform: scale(1.2);
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.popup-content {
+    background-color: #444;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #555;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 20px;
+    color: #fff;
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.popup-close {
+    color: #fff;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.popup-close:hover,
+.popup-close:focus {
+    color: #ff4500;
+}
+
+.popupTitle {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.response-input-title,
+.response-input,
+.category-select,
+.post-button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+}
+
+.post-button {
+    background-color: #ff4500;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.post-button:hover {
+    background-color: #e03e00;
+    transform: scale(1.05);
+}
+
+.delete-btn {
+    cursor: pointer;
+    color: red;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+/* Animations */
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+/* Sorting */
+
+.filter-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+#sort-select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 400px) {
+    .card {
+        width: 95%;
+        padding: 5px;
+    }
+
+    .textCardContainer {
+        font-size: 1em;
+    }
+
+    .cardProfileImg {
+        height: 6vh;
+    }
+
+    .likeAndUnLike, .response {
+        height: 3vh;
+    }
+
+    .no-posts-message {
+        font-size: 20px;
+    }
+
+    .filter-container {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    #sort-select {
+        width: 60%;
+    }
+}

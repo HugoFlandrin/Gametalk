@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameTalk</title>
+    <link rel="stylesheet" href="../static/css/ThemeSelection.css">
+    <link rel="stylesheet" href="../static/css/header.css">
+    <link rel="stylesheet" href="../static/css/footer.css">
+</head>
+
+<body>
+    {{ template "header"}}
+
+    <section class="container">
+        <h2 class="title-top">Games</h2>
+        <div class="games-container">
+            <button class="scroll-button left">&lt;</button>
+            <div class="games">
+                <!-- <img src="https://image.api.playstation.com/vulcan/img/cfn/11307x4B5WLoVoIUtdewG4uJ_YuDRTwBxQy0qP8ylgazLLc01PBxbsFG1pGOWmqhZsxnNkrU3GXbdXIowBAstzlrhtQ4LCI4.png" alt="Minecraft"> 
+                <img src="https://blog.king-jouet.com/wp-content/uploads/2021/08/thumbnail_League-Of-Legends-e1634898736732.jpg" alt="League of Legends">
+                <img src="https://e.sport.fr/wp-content/uploads/2020/07/valorant.jpeg" alt="Valorant">
+                <img src="https://assets.xboxservices.com/assets/db/88/db8834a9-115d-45e7-a9b5-fa4216b2aac2.jpg?n=CoD-Warzone_GLP-Page-Hero-1084_1920x1080_04.jpg" alt="warzone">
+                <img src="https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_switch_download_software_1/2x1_NSwitchDS_Overwatch2_Season6_image1280w.png" alt="Overwatch">
+                <img src="https://cdn-0001.qstv.on.epicgames.com/BVJAxewzMErFbvlMLx/image/screen_comp.jpeg" alt="Fortnite">
+                <img src="https://psblog.fr/wp-content/uploads/2021/05/gta-5.jpg" alt="GTA V"> -->
+            </div>
+            <button class="scroll-button right">&gt;</button>
+        </div>
+    </section>
+    <div class="cardContainer">
+
+        <div class="card">
+            <div class="content">
+            </div>
+        </div>
+    </div>
+
+    {{ template "footer"}}
+    <script type="module" src="../static/js/ThemeSelection.js"></script>
+    <script>
+       document.addEventListener('DOMContentLoaded', (event) => {
+            fetch('http://localhost:8081/api/ThemeSelection', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    if (data.status === 'success' && Array.isArray(data.games)) {
+                        const gamesContainer = document.querySelector('.games-container .games');
+                        gamesContainer.innerHTML = '';
+
+                data.games.forEach(game => {
+                    const gameLink = document.createElement('a');
+                    gameLink.href = `GameInfo?id=${game.id}`;
+                    
+                    const gameImage = document.createElement('img');
+                    gameImage.src = game.imageLink;
+                    gameImage.alt = game.title;
+                    
+                    gameLink.appendChild(gameImage);
+                    gamesContainer.appendChild(gameLink);
+                });
+            } else {
+                alert('Failed to load data');
+            }
+        })
+        .catch(error => console.error('Error fetching games:', error));
+});
+
+
+    </script>
+</body>
+
+</html>

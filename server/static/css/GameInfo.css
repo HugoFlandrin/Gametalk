@@ -1,0 +1,323 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: url("../img/BackgroundgameTalk.png") no-repeat center center fixed;
+    background-size: cover;
+    font-family: "Lobster Two", cursive;
+    color: aliceblue;
+}
+
+.LogoGameTalk {
+    width: 15%;
+}
+
+.header {
+    background-color: black;
+    min-height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    box-sizing: border-box;
+}
+
+.left-section,
+.right-section {
+    display: flex;
+    align-items: center;
+}
+
+.title-top {
+    color: #ff0000;
+    font-weight: 700;
+    font-size: 2.5em;
+    text-align: center;
+}
+
+.footerBottom {
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    transform: translateY(700%);
+}
+
+.title {
+    color: aliceblue;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.sidebar,
+.sidebarMenu {
+    height: 100%;
+    width: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #201e1e;
+    padding-top: 1%;
+    transition: width 0.3s;
+    border-radius: 10px;
+    border: solid 2px;
+}
+
+.sidebarMenu.expanded {
+    width: 9%;
+    border-radius: 10px;
+}
+
+.sidebar .dropdown-btn,
+.sidebarMenu .dropdown-btn {
+    width: 50%;
+    padding: 16%;
+    font-size: 16px;
+    text-align: left;
+    background-color: #201e1e;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.sidebarMenu .dropdown-container {
+    display: none;
+    background-color: #201e1e;
+}
+
+.sidebarMenu .dropdown-container a {
+    padding: 12% 16%;
+    text-decoration: none;
+    font-size: 14px;
+    color: white;
+    display: block;
+}
+
+.sidebar .dropdown-btn.active {
+    background-color: #201e1e;
+}
+
+.sidebarMenu .dropdown-container.show {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: flex;
+}
+
+.mainBtn,
+.mainBtnLog {
+    display: flex;
+    justify-content: center;
+    color: rgb(23, 23, 24);
+    background-color: rgb(125, 128, 129);
+    border-radius: 10px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2em;
+    margin: 4vh;
+    width: auto;
+}
+
+.mainBtn:hover {
+    transform: scale(1.1);
+}
+
+.sidebar-2,
+.sidebarMenu-2 {
+    height: 100%;
+    width: auto;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #201e1e;
+    padding-top: 1%;
+    transition: width 0.3s;
+    border-radius: 10px;
+    border: solid 2px;
+}
+
+.sidebarMenu-2.expanded {
+    width: 9%;
+    border-radius: 10px;
+}
+
+.sidebar-2 .dropdown-btn,
+.sidebarMenu-2 .dropdown-btn {
+    width: 50%;
+    padding: 16%;
+    font-size: 16px;
+    text-align: left;
+    background-color: #201e1e;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.sidebarMenu-2 .dropdown-container {
+    display: none;
+    background-color: #201e1e;
+}
+
+.sidebarMenu-2 .dropdown-container a {
+    padding: 12% 16%;
+    text-decoration: none;
+    font-size: 14px;
+    color: white;
+    display: block;
+}
+
+.sidebar-2 .dropdown-btn.active {
+    background-color: #201e1e;
+}
+
+.sidebarMenu-2 .dropdown-container.show {
+    display: block;
+}
+
+.mainBtnLog {
+    transform: translateY(50vh);
+}
+
+.material-symbols-outlined {
+    color: aliceblue;
+}
+
+.search {
+    --padding: 2vh;
+    width: max-content;
+    display: flex;
+    align-items: center;
+    padding: var(--padding);
+    border-radius: 28px;
+    background: #313131;
+    transition: background 0.25s;
+    margin: 0 auto;
+}
+
+.search:focus-within {
+    box-shadow: 0 0 2px rgb(241, 238, 238);
+}
+
+.search-input {
+    font-size: 16px;
+    font-family: 'Times New Roman', Times, serif;
+    color: #eeeef3;
+    margin-left: var(--padding);
+    outline: none;
+    border: none;
+    background: transparent;
+}
+
+.search-input::placeholder,
+.search-icon {
+    color: #f0e9e9;
+}
+
+.mediaContainer {
+    display: flex;
+    justify-content: center;
+    margin: 5%;
+}
+
+.cardMedia {
+    height: 35vh;
+    width: 50vh;
+    background-color: #eeeef3;
+    border-radius: 10px;
+    object-fit: cover;
+    object-position: center;
+    margin: 1%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardMedia img {
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.InfoDescription {
+    height: 35vh;
+    width: 60vh;
+    background-color: #333;
+    border-radius: 20px;
+    margin: 1%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2%;
+    color: aliceblue;
+}
+
+.titleDescription {
+    font-weight: 700;
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: aliceblue;
+}
+
+.Description {
+    font-weight: 400;
+    font-size: 1.5em;
+    text-align: center;
+    margin: 0 10px;
+    color: aliceblue;
+}
+
+.themeContainer {
+    display: flex;
+    justify-content: center;
+    margin: 5%;
+}
+
+table {
+    background-color: #D9D9D9;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 2px solid rgb(140 140 140);
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 50%;
+}
+
+thead {
+    background-color: rgb(228 240 245);
+}
+
+th,
+td {
+    border: 1px solid rgb(160 160 160);
+    padding: 12px 15px;
+    border-radius: 5px;
+}
+
+td:last-of-type {
+    text-align: center;
+}
+
+tbody>tr:nth-of-type(even) {
+    background-color: rgb(237 238 242);
+}
+
+th {
+    text-align: right;
+}
+
+td {
+    font-weight: bold;
+}

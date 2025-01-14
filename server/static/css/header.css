@@ -1,0 +1,276 @@
+/* HEADER */
+
+.title-logo {
+    display: flex;
+    align-items: center;    
+    justify-content: center;
+    position: absolute;
+    padding-left: 24.5%;
+}
+
+.LogoGameTalk {
+    width: 15%;
+    margin-right: -1%;
+    cursor: pointer;
+}
+
+#header-title {
+    cursor: pointer;
+}
+
+.search-box {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%);
+    background: #fff;
+    height: 40px;
+    border-radius: 30px;
+    padding: 3px;
+    margin-left: 100px;
+}
+
+.search-box:hover > .txt {
+    width: 300px;
+    padding: 0 6px;
+    transition: all 1s;
+}
+
+.search-box > .btn {
+    background: #07051a;
+}
+
+.btn {
+    float: right;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+.btn > img {
+    font-size: 30px;
+    margin-right: 65px;
+}
+
+.magnifier {
+    height: 35px;
+    width: auto;
+    margin-left: 160%;
+    margin-bottom: 10%;
+}
+
+.txt {
+    border: none;
+    outline: none;
+    background: none;
+    float: left;
+    padding: 0;
+    color: #333;
+    font-size: 16px;
+    transition: 0.4s;
+    line-height: 40px;
+    width: 0px;
+    font-weight: bold;
+}
+
+.form:hover .fa {
+    background: #07051a;
+    color: #fff;
+}
+
+@media screen and (max-width: 800px) { 
+    .header {
+        padding: 0 5%; 
+    }
+
+    .logoHeaderUser, .logoHeaderMenu{
+        overflow: hidden;
+    }
+
+    .logoHeaderUser,
+    .logoHeaderMenu {
+        height: 4vh; 
+    }
+}
+
+.logoHeaderUser,
+.logoHeaderMenu {
+    cursor: pointer;
+    height: 5vh;
+    width: auto;
+    margin-left: -50px;
+    margin-bottom: 5px;
+}
+
+.header {
+    height: 70px;
+    background-color: black;
+    min-height: 10vh; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%; 
+    box-sizing: border-box;
+}
+
+.hidden {
+    display: none;
+}
+
+.user-menu, .left-menu {
+    position: absolute;
+    background-color: #515151;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 1000;
+    width: 210px;
+    justify-content: center;
+}
+
+.user-menu button, .left-menu button {
+    width: 100%;
+    padding: 12px 16px;
+    border: none;
+    background-color: #515151;
+    color: aliceblue;
+    text-align: center;
+    font-size: 24px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.user-menu img {
+    width: 50px;
+    padding-left: 80px;
+    padding-top: 10px;
+}
+
+.user-menu button:hover, .left-menu button:hover {
+    background-color: rgb(64, 64, 64);
+}
+
+.logoHeaderUser, .logoHeaderMenu {
+    transition: transform 0.3s;
+}
+
+.logoHeaderUser:hover, .logoHeaderMenu:hover {
+    transform: scale(1.1);
+}
+
+.left-section,
+.right-section {
+    display: flex;
+    align-items: center;
+}
+
+.mainBtn,
+.mainBtnLog {
+    display: flex;
+    justify-content: center;
+    color: rgb(23, 23, 24);
+    background-color: rgb(125, 128, 129);
+    border-radius: 10px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2em;
+    margin: 4vh;
+    width: auto;
+}
+
+.mainBtn:hover {
+    transform: scale(1.1);
+}
+
+.mainBtnLog {
+    transform: translateY(50vh);
+}
+
+.title-top {
+    color: rgb(255, 255, 255);
+    font-family: "Jacques Francois", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 2em;
+}
+
+.title-top::first-letter {
+    color: rgb(255, 0, 0);
+}
+
+#header-title {
+    color: rgb(255, 255, 255);
+    font-family: "Jacques Francois", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 2em;
+}
+
+.red {
+    color: red;
+}
+
+.logoHeaderUser {
+    margin-right: -8vh;
+    margin-left: 8vh;
+    height: 50px;
+    width: auto;
+}
+
+@media screen and (max-width: 400px) { 
+    .header {
+        padding: 0 5%; 
+        height: auto;
+    }
+
+    .title-logo {
+        position: static;
+        margin-left: -30px;
+        margin-bottom: 5px;
+    }
+    .LogoGameTalk {
+        width: 35%;
+    }
+
+    .search-box {
+        margin-left: 51px;
+        width: 85%;
+        left: initial;
+        transform: none;
+        margin-right: -50px;
+    }
+
+    .search-box:hover > .txt {
+        width: 100%;
+        padding: 0 6px;
+    }
+
+    .magnifier{
+        width: 80%;
+        height: auto;
+    }
+
+    .user-menu, .left-menu {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .left-section {
+        margin-left: 50px;
+        margin-right: -50px;
+    }
+
+    #leftMenuIcon {
+        height: 25px;
+    }
+
+    #userMenuIcon {
+        height: 40px;
+        margin-right: 0px;
+    }
+}

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jacques+Francois&family=Material+Symbols+Outlined:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/ProfileManagerPage.css">
+    <link rel="stylesheet" href="../static/css/header.css">
+    <link rel="stylesheet" href="../static/css/footer.css">
+    
+</head>
+
+<body>
+
+    {{template "header"}}
+
+
+    <div class="container">
+        <main class="main-content">
+            <section class="profile-section">
+                <div class="profile-image-container">
+                    <img id="profile-image" src="../static/img/default-profile.png" alt="Profile Image" class="profile-image">
+                    <form id="upload-form" method="post" enctype="multipart/form-data" class="upload-form">
+                        <input type="file" name="image" accept="image/*" id="image-input" class="image-input" />
+                        <button type="submit" class="upload-button">Add</button>
+                    </form>
+                </div>
+                <div class="profile-details">
+                    <form id="profile-form" method="post" class="profile-form">
+                        <div class="form-group">
+                           <h3>Your current e-mail address: <p class="actual-email"></p> </h3> 
+                            <label for="name">Nouveau mail:</label>
+                            <input type="email" name="emailInput" id="name" placeholder="enter your new e-mail address...."  />
+                        </div>
+                        <div class="form-group">
+                            <h3>Your current username : 
+                                <input type="password" class="actual-username" readonly value="VotreNomDUtilisateur" id="usernameField">
+                                <span class="toggle-visibility" id="eyes">
+                                    <span class="material-symbols-outlined" id="eyeUsername">visibility_off</span>
+                                </span>
+                            </h3> 
+                            <label for="username">New Username:</label>
+                            <input type="text" name="usernameInput" id="username" placeholder="enter your username...."  />
+                        </div>
+                        <div class="form-group">
+                            <label for="currentPassword">New Password:</label>
+                            <input type="password" name="currentPasswordInput" id="currentPassword" placeholder="enter new password...."  />
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword">Confirm Password:</label>
+                            <input type="password" name="newPasswordInput" id="newPassword" placeholder="enter the password a second time...."  />
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="submit-button">Submit</button>
+                        </div>
+                    </form>
+                    <button id="delete" type="button" class="delete-button">Delete account</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    {{template "footer"}}
+
+    <script type="module" src="../static/js/ProfileManager.js" defer></script>
+    <script type="module" src="../static/js/cookieManager.js" defer></script>
+    <script type="module">
+        import { setCookie, getCookie } from '../static/js/cookieManager.js';
+
+        function Mode() {
+            console.log(getCookie("session_id"))
+            if (getCookie("session_id") != null && getCookie("session_id") != 0) {
+                window.location.href = "/Profile"
+            } else {
+                window.location.href = "/Login"
+            }
+        }
+
+        function LogOut() {
+            window.location.href = "/"
+            setCookie("session_id", '', 24)
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchUsers);
+
+        let deleteAccount = document.querySelector("#delete");
+        let email = document.querySelector(".actual-email");
+        let username = document.querySelector(".actual-username");
+        let form = document.querySelector(".profile-form");
+
+        async function fetchUsers() {
+            try {
+                const sessionId = getCookie("session_id");
+                const response = await fetch('http://localhost:8081/api/getusers', {
+                    mode: 'cors',
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const users = await response.json();
+                users.forEach(user => {
+                    if (user.id.toString() === sessionId) {
+                        email.textContent = `${user.email}`;
+                        username.value = `${user.username}`;
+                        const imgElement = document.getElementById('profile-image');
+                        if (user.profile_picture.String !== null) {
+                            imgElement.src = 'http://localhost:8081/' + user.profile_picture.String;
+                        } else {
+                            imgElement.src = 'static/img/utilisateur.png';
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        }
+
+        const formImg = document.getElementById('upload-form');
+        const inputFile = document.getElementById('image-input');
+
+        formImg.addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const formData = new FormData(formImg);
+
+            const id = getCookie("session_id");
+            const url = 'http://localhost:8081/api/uploadImg?id=' + encodeURIComponent(id);
+
+            try {
+                const response = await fetch(url, {
+                    mode: 'cors',
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`Network response was not ok: ${errorText}`);
+                }
+
+                const result = await response.json();
+                const imgElement = document.getElementById('profile-image');
+                imgElement.src = 'http://localhost:8081/' + result.profile_picture;
+
+            } catch (error) {
+                console.error('Error uploading image:', error);
+            }
+        });
+
+        deleteAccount.addEventListener('click', async function (event) {
+            event.preventDefault();
+            const id = getCookie("session_id");
+            const url = 'http://localhost:8081/api/deleteUser?id=' + encodeURIComponent(id);
+            try {
+                const response = await fetch(url, {
+                    mode: 'cors',
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to delete account');
+                }
+                LogOut();
+            } catch (error) {
+                console.error('Error deleting account:', error);
+            }
+        });
+
+        function toggleVisibility(fieldId, iconId) {
+            const field = document.getElementById(fieldId);
+            const icon = document.getElementById(iconId);
+
+            if (field.type === "password") {
+                field.type = "text";
+                icon.textContent = "visibility";
+            } else {
+                field.type = "password";
+                icon.textContent = "visibility_off";
+            }
+        }
+
+        const eyes = document.getElementById("eyes");
+        eyes.addEventListener('click', function() {
+            toggleVisibility('usernameField', 'eyeUsername');
+        });
+
+        form.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const formData = new URLSearchParams(new FormData(form)).toString();
+
+            const newEmail = document.querySelector("#name").value;
+            const newUsername = document.querySelector("#username").value;
+            
+            email.textContent = newEmail !== "" ? newEmail : email.textContent;
+            username.textContent = newUsername !== "" ? newUsername : username.textContent;
+
+            const id = getCookie("session_id")
+            const url = 'http://localhost:8081/api/modifyUser?id=' + encodeURIComponent(id);
+
+            try {
+                const response = await fetch(url, {
+                    mode: 'cors',
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const result = await response.json();
+                window.location.href = "/";
+            } catch (error) {
+                console.error('Error updating user:', error);
+            }
+        });
+    </script>
+
+</body>
+
+</html>

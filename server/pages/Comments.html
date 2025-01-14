@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameTalk</title>
+    <link rel="stylesheet" href="../static/css/Comments.css">
+    <link rel="stylesheet" href="../static/css/header.css">
+    <link rel="stylesheet" href="../static/css/footer.css">
+</head>
+
+<body>
+    {{template "header"}}
+
+    <main>
+        <h2 class="title-top-topic"></h2>
+        <div class="Comments-number">
+            <span class="comments-count">190</span>
+            <img class="response" src="../static/img/discuter.png" alt="">
+        </div>
+        <div class="response">Reply :</div>
+        <section class="discussion">
+            <div class="comment-box">
+                <textarea id="commentInput" placeholder="Add your comment..." oninput="updateCharacterCount()"></textarea>
+                <div class="character-count" id="characterCount">0/10000</div>
+                <div class="comment-actions">
+                    <div class="left-actions">
+                        <button class="add-btn" onclick="toggleImageUpload()">+</button>
+                    </div>
+                    <div class="right-actions">
+                        <button class="gift-btn" onclick="toggleGifSearch()">🎁</button>
+                        <button class="send-btn" onclick="postComment()">➤</button>
+                        <button class="delete-btn" onclick="clearComment()">🗑️</button>
+                    </div>
+                    <input type="file" id="imageUpload" style="display: none;" onchange="handleImageUpload()">
+                    <input type="text" id="gifSearch" placeholder="Rechercher un GIF" style="display: none;" oninput="searchGif(event)">
+                    <div id="gifResults" style="display: none;"></div>
+                </div>
+            </div>
+            <div id="commentsSection">
+            </div>
+        </section>
+    </main>
+    {{template "footer"}}
+    <script src="../static/js/Comments.js"></script>
+</body>
+
+</html>

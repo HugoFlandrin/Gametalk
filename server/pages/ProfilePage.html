@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/ProfilePage.css">
+    <link rel="stylesheet" href="../static/css/header.css">
+    <link rel="stylesheet" href="../static/css/footer.css">
+    <title>Profil</title>
+</head>
+
+<body>
+
+    {{template "header"}}
+
+    <main class="main-content">
+        <section class="user-profile">
+            <div class="card-img" id="profile-picture" aria-label="Profile Image"></div>
+            <div class="user-card-container">
+                <div class="user-info">
+                    <p class="name-user" id="username">User name</p>
+                    <button class="btns modifyBiography-btn" id="modify">Modify profile</button>
+                    <button class="btns modifyBiography-btn" id="modifyBiography">Edit Biography</button>
+                </div>
+                <article class="biographie">
+                    <h3 class="biographie-title">Biography</h3>
+                    <p class="biographie-text" id="biographie-text">
+                    </p>
+                    <textarea id="biographie-input" class="biographie-input hidden"></textarea>
+                    <button id="save-biographie" class="btns save-btn hidden">Save</button>
+                </article>
+            </div>
+        </section>
+        <nav class="btns">
+            <button class="btns category-btn" onclick="location.href='/MyPosts'">My jobs</button>
+            <button class="btns category-btn" onclick="location.href='/Profile'">Profile</button>
+            <button class="btns category-btn" onclick="location.href='/MyLikes'">My likes</button>
+        </nav>
+        <section class="information">
+            <p class="info-item" id="email">Email: abcd@gmail.com</p>
+            <p class="info-item" id="postNumber">Posts: XXX</p>
+        </section>
+    </main>
+
+    {{template "footer"}}
+
+    <script type="module" src="../static/js/profilePage.js"></script>
+    <script type="module">
+        import { setCookie, getCookie } from '../static/js/cookieManager.js';
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const userId = getCookie("session_id");
+            const modifyButton = document.getElementById('modifyBiography');
+            const saveButton = document.getElementById('save-biographie');
+            const biographieText = document.getElementById('biographie-text');
+            const biographieInput = document.getElementById('biographie-input');
+            const postNumber = document.getElementById('postNumber');
+
+            await fetch(`http://localhost:8081/api/ProfilePageHandler?id=${userId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.status === 'success' && data.user) {
+                        document.getElementById('username').textContent = data.user.username;
+                        document.getElementById('email').textContent = `Email: ${data.user.email}`;
+                        if (data.user.profile_picture) {
+                            document.getElementById('profile-picture').style.backgroundImage = `url('http://localhost:8081/${data.user.profile_picture}')`;
+                        }
+                        if (data.user.biography) {
+                            biographieText.textContent = data.user.biography;
+                        } else {
+                            biographieText.textContent = " I had always dreamed of working in IT. I had a computer in my family from a very early age, and these machines have always fascinated me: the experience they offer, the multiple domains they open up to us, and their whims too!";
+                        }
+                    } else {
+                        alert('Failed to load data');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching user data:', error);
+                    alert('Failed to load profile data. Please try again later.');
+                });
+
+            modifyButton.addEventListener('click', () => {
+                biographieText.classList.add('hidden');
+                biographieInput.classList.remove('hidden');
+                biographieInput.value = biographieText.textContent;
+                saveButton.classList.remove('hidden');
+            });
+
+            saveButton.addEventListener('click', () => {
+                const updatedBiographie = biographieInput.value;
+                console.log(userId);
+                console.log('Updating biography:', updatedBiographie);  
+                fetch('http://localhost:8081/api/UpdateBiographyHandler', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: userId, biography: updatedBiographie })
+                })
+                    .then(response => {
+                        console.log('Server response:', response);  
+                        if (!response.ok) {
+                            throw new Error(response.statusText);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data);
+                        if (data.status === 'success') {
+                            biographieText.textContent = updatedBiographie;
+                            biographieText.classList.remove('hidden');
+                            biographieInput.classList.add('hidden');
+                            saveButton.classList.add('hidden');
+                            setUserData()
+                        } else {
+                            alert('Failed to save biography');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error updating biography:', error);
+                        alert('Failed to save biography. Please try again later.');
+                    });
+            });
+            setUserData();
+        });
+
+        async function getUserPosts() {
+            const response = await fetch('http://localhost:8081/api/gettopics', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            let id = getCookie('session_id');
+            console.log(id)
+            return filterPosts(data, id);
+        }
+
+        function filterPosts(posts, id) {
+            return posts.filter(post => post.created_by === parseInt(id));
+        }   
+
+        async function setUserData() {
+            try {
+                let posts = await getUserPosts();
+                postNumber.innerHTML = "Postes : " + posts.length;
+            } catch (error) {
+                console.error('Error fetching user posts:', error);
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,465 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: url("../img/BackgroundgameTalk.png") no-repeat center center fixed;
+    background-size: cover;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.LogoGameTalk {
+    width: 15%;
+}
+
+.logoHeader,
+.logoHeaderMenu {
+    cursor: pointer;
+    height: 5vh;
+    width: auto;
+}
+
+.logoHeaderMenu {
+    transform: translateY(15%);
+}
+
+.header {
+    background-color: black;
+    min-height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    box-sizing: border-box;
+}
+
+.left-section,
+.right-section {
+    display: flex;
+    align-items: center;
+}
+
+.title-top {
+    color: aliceblue;
+    font-family: "Jacques Francois", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 2em;
+}
+
+.title-top::first-letter {
+    color: red;
+}
+
+.secondLetter {
+    color: red;
+}
+
+.logoHeader {
+    margin-left: 2vh;
+}
+
+
+
+.footerBottom {
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    transform: translateY(700%);
+}
+
+
+.title {
+    color: aliceblue;
+    font-family: "Jacques Francois", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.sidebar,
+.sidebarMenu {
+    height: 100%;
+    width: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #201e1e;
+    padding-top: 1%;
+    transition: width 0.3s;
+    border-radius: 10px;
+    border: solid 2px;
+}
+
+.sidebarMenu.expanded {
+    width: 9%;
+    border-radius: 10px;
+}
+
+.sidebar .dropdown-btn,
+.sidebarMenu .dropdown-btn {
+    width: 50%;
+    padding: 16%;
+    font-size: 16px;
+    text-align: left;
+    background-color: #201e1e;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.sidebarMenu .dropdown-container {
+    display: none;
+    background-color: #201e1e;
+}
+
+.sidebarMenu .dropdown-container a {
+    padding: 12% 16%;
+    text-decoration: none;
+    font-size: 14px;
+    color: white;
+    display: block;
+}
+
+.sidebar .dropdown-btn.active {
+    background-color: #201e1e;
+}
+
+.sidebarMenu .dropdown-container.show {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+
+.visible {
+    display: flex;
+}
+
+.mainBtn,
+.mainBtnLog {
+    display: flex;
+    justify-content: center;
+    color: rgb(23, 23, 24);
+    background-color: rgb(125, 128, 129);
+    border-radius: 10px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2em;
+    margin: 4vh;
+    width: auto;
+}
+
+.mainBtn:hover {
+    transform: scale(1.1);
+}
+
+.sidebar-2,
+.sidebarMenu-2 {
+    height: 100%;
+    width: auto;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #201e1e;
+    padding-top: 1%;
+    transition: width 0.3s;
+    border-radius: 10px;
+    border: solid 2px;
+}
+
+.sidebarMenu-2.expanded {
+    width: 9%;
+    border-radius: 10px;
+}
+
+.sidebar-2 .dropdown-btn,
+.sidebarMenu-2 .dropdown-btn {
+    width: 50%;
+    padding: 16%;
+    font-size: 16px;
+    text-align: left;
+    background-color: #201e1e;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.sidebarMenu-2 .dropdown-container {
+    display: none;
+    background-color: #201e1e;
+}
+
+.sidebarMenu-2 .dropdown-container a {
+    padding: 12% 16%;
+    text-decoration: none;
+    font-size: 14px;
+    color: white;
+    display: block;
+}
+
+.sidebar-2 .dropdown-btn.active {
+    background-color: #201e1e;
+}
+
+.sidebarMenu-2 .dropdown-container.show {
+    display: block;
+}
+
+.mainBtnLog {
+    transform: translateY(50vh);
+}
+
+.material-symbols-outlined {
+    color: aliceblue;
+}
+
+.search {
+    --padding: 2vh;
+    width: max-content;
+    display: flex;
+    align-items: center;
+    padding: var(--padding);
+    border-radius: 28px;
+    background: #313131;
+    transition: background 0.25s;
+    margin: 0 auto;
+}
+
+.search:focus-within {
+    box-shadow: 0 0 2px rgb(241, 238, 238);
+}
+
+.search-input {
+    font-size: 16px;
+    font-family: 'Times New Roman', Times, serif;
+    color: #eeeef3;
+    margin-left: var(--padding);
+    outline: none;
+    border: none;
+    background: transparent;
+}
+
+.search-input::placeholder,
+.search-icon {
+    color: #f0e9e9;
+}
+
+
+#profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+#upload-form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.CRUD-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.email label,
+.email input {
+    width: 300px;
+    margin-bottom: 10px;
+}
+
+.email button {
+    width: 320px;
+    margin-bottom: 20px;
+}
+
+#delete {
+    width: 320px;
+    margin-bottom: 20px;
+}
+
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #3e8e41;
+}
+
+#delete {
+    background-color: #ff0000;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#delete:hover {
+    background-color: #cc0000;
+}
+
+.email input[type="text"],
+.email input[type="password"] {
+    background-color: #f2f2f2;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 300px;
+    box-sizing: border-box;
+}
+
+.email p {
+    font-size: 30px;
+    color: #ffffff;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.main-content {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 800px;
+    width: 100%;
+    margin: 20px;
+    padding: 20px;
+    color: white;
+    font-family: "Lobster Two", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 2px solid #ddd;
+}
+
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-input {
+    margin-bottom: 10px;
+}
+
+.upload-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.profile-details {
+    width: 100%;
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.form-group input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.submit-button,
+.delete-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.delete-button {
+    background-color: #f44336;
+    margin-top: 20px;
+}
+
+
+.toggle-visibility {
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.material-symbols-outlined {
+    vertical-align: middle;
+}

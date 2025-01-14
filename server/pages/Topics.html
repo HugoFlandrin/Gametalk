@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jacques+Francois&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="../static/css/Research.css">
+    <link rel="stylesheet" href="../static/css/header.css">
+    <link rel="stylesheet" href="../static/css/footer.css">
+</head>
+
+<body>
+    
+    {{ template "header" }}
+
+    <div class="filter-container">  
+        <select id="sort-select">
+            <option value="likes">Sort by number of likes</option>
+            <option value="date">Sort by date</option>
+            <option value="comments">Sort by number of comments</option>
+        </select>
+    </div>
+
+    <div id="posts-container" class="cardContainer">
+
+    </div>
+
+    {{ template "footer" }}
+
+</body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        fetch('http://localhost:8081/api/gettopics', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            filterPosts(data);
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    function getCookie(name) {
+        const regex = new RegExp(`(?:^|;\\s*)${name}=([^;]*)`);
+        const match = regex.exec(document.cookie);
+        return match ? match[1].replace(/\s+/g, '') : null;
+    }
+
+    async function getLikes(id_post) {
+        let likecount = 0;
+        let user_like = false;
+        let dislikecount = 0;
+        let user_dislike = false;
+        try {
+            const response = await fetch(`http://localhost:8081/api/getLikes?topic_id=${id_post}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            data.forEach(like => {
+                if (like.topic_id === id_post) {
+                    if (like.user_id == parseInt(getCookie("session_id"))) {
+                        user_like = true;
+                    }
+                    likecount++;
+                }
+            });
+        } catch (error) {
+            console.error('Error:', error);
+        }
+        try {
+            const response = await fetch(`http://localhost:8081/api/getUnLikes?topic_id=${id_post}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            data.forEach(dislike => {
+                if (dislike.topic_id === id_post) {
+                    if (dislike.user_id == parseInt(getCookie("session_id"))) {
+                        user_dislike = true;
+                    }
+                    dislikecount++;
+                }
+            });
+        } catch (error) {
+            console.error('Error:', error);
+        }
+        return { likecount, dislikecount, user_like, user_dislike };
+    }
+
+    function getUser(id) {
+        return fetch('http://localhost:8081/api/getusers', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(users => {
+            const user = users.find(user => user.id === id);
+            return user;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            return 'Unknown';
+        });
+    }
+
+    function displayPosts(posts) {
+        const postsContainer = document.getElementById('posts-container');
+        postsContainer.innerHTML = '';
+
+        posts.forEach(post => {
+            const postElement = document.createElement('div');
+            postElement.classList.add('card');
+            postElement.dataset.id = post.id; 
+
+            getUser(post.created_by).then(user => {
+                getLikes(post.id).then(({ likecount, dislikecount, user_like, user_dislike }) => {
+                    postElement.innerHTML = `
+                        <div class="content">
+                            <div class="cardHeader">
+                                <img class="cardProfileImg" src="http://localhost:8081/${user.profile_picture.String}" alt="profile" onclick="displayUser(${post.created_by})" style="cursor: pointer;">
+                                <div class="cardHeaderText">
+                                    <p class="NameUser" onclick="displayUser(${post.created_by})" style="cursor: pointer;">${user.username}</p>
+                                    <p class="DatePost">${new Date(post.created_at).toLocaleString()}</p>
+                                </div>
+                            </div>
+                            <p class="textCardContainer">${post.body}</p>
+                            <div class="cardFooter">
+                                <div>
+                                    <span class="like-counter">${likecount}</span> 
+                                    <img class="likeAndUnLike like-btn" src="../static/img/like.png" alt="like">
+                                    <span class="unlike-counter">${dislikecount}</span>  
+                                    <img class="likeAndUnLike unlike-btn" src="../static/img/unLike.png" alt="Unlike">
+                                </div>
+                                <div>
+                                    <img class="response" id="response" src="../static/img/discuter.png" alt="response">Give my opinion
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    postsContainer.appendChild(postElement);
+                    addCardFunctionality(postElement, user_like, user_dislike);
+                });
+            });
+        });
+    }
+
+    function filterPosts(posts) {
+        const searchQuery = new URLSearchParams(window.location.search).get('search') || '';
+        const filteredPosts = posts.filter(post =>
+            post.body.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        if (filteredPosts.length === 0) {
+            const postsContainer = document.getElementById('posts-container');
+            postsContainer.innerHTML = '';
+
+            const noPostsMessage = document.createElement('p');
+            noPostsMessage.textContent = "There are no positions matching your search.";
+            noPostsMessage.classList.add('no-posts-message');
+            postsContainer.appendChild(noPostsMessage);
+
+            const sortSelect = document.getElementById('sort-select');
+            sortSelect.style.opacity = '0%';
+
+        } else {
+            sortPosts(filteredPosts)
+        }
+    }
+
+    function sortPosts(posts) {
+        const sortValue = document.getElementById("sort-select").value;
+
+        switch (sortValue) {
+            case 'date':
+                posts = posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                break;
+            case 'likes':
+                posts = posts.sort((a, b) => (b.likes || 0) - (a.likes || 0));
+                break;
+            case 'comments':
+                posts = posts.sort((a, b) => (b.comments || 0) - (a.comments || 0));
+                break;
+        }
+        displayPosts(posts);
+    }
+
+    document.getElementById('sort-select').addEventListener('change', () => {
+        fetch('http://localhost:8081/api/gettopics', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            filterPosts(data);
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    function displayUser(id) {
+        const encodedUser = encodeURIComponent(id);
+        window.location.href = `/User?user=${encodedUser}`;
+    }
+
+    function addCardFunctionality(card, user_like, user_dislike) {
+        const likeBtn = card.querySelector('.like-btn');
+        const unlikeBtn = card.querySelector('.unlike-btn');
+        const likeCounter = card.querySelector('.like-counter');
+        const unlikeCounter = card.querySelector('.unlike-counter');
+        const responseBtn = card.querySelector('#response');
+
+        let likeCount = parseInt(likeCounter.textContent, 10);
+        let unlikeCount = parseInt(unlikeCounter.textContent, 10);
+        let likeClicked = user_like;
+        let unlikeClicked = user_dislike;
+
+        likeBtn.addEventListener('click', async () => {
+            if (!likeClicked) {
+                likeCount++;
+                likeClicked = true;
+                likeCounter.textContent = likeCount;
+                if (unlikeClicked) {
+                    unlikeCount--;
+                    unlikeClicked = false;
+                    unlikeCounter.textContent = unlikeCount;
+                    await updateLikeUnlikeStatus(card.dataset.id, 'undislike', "DELETE");
+                }
+                await updateLikeUnlikeStatus(card.dataset.id, 'like', "POST");
+            } else {
+                likeCount--;
+                likeClicked = false;
+                likeCounter.textContent = likeCount;
+                await updateLikeUnlikeStatus(card.dataset.id, 'unlike', "DELETE");
+            }
+        });
+
+        unlikeBtn.addEventListener('click', async () => {
+            if (!unlikeClicked) {
+                unlikeCount++;
+                unlikeClicked = true;
+                unlikeCounter.textContent = unlikeCount;
+                if (likeClicked) {
+                    likeCount--;
+                    likeClicked = false;
+                    likeCounter.textContent = likeCount;
+                    await updateLikeUnlikeStatus(card.dataset.id, 'unlike', "DELETE");
+                }
+                await updateLikeUnlikeStatus(card.dataset.id, 'dislike', "POST");
+            } else {
+                unlikeCount--;
+                unlikeClicked = false;
+                unlikeCounter.textContent = unlikeCount;
+                await updateLikeUnlikeStatus(card.dataset.id, 'undislike', "DELETE");
+            }
+        });
+
+        responseBtn.addEventListener('click', () => {
+            const postId = card.dataset.id;
+            const encodedPost = encodeURIComponent(postId);
+            window.location.href = `/Comments?id=${encodedPost}`;
+        });
+    }
+
+    async function updateLikeUnlikeStatus(postId, action, method) {
+        let url;
+        switch (action) {
+            case 'like':
+                url = 'http://localhost:8081/api/like';
+                break;
+            case 'unlike':
+                url = 'http://localhost:8081/api/unlike';
+                break;
+            case 'dislike':
+                url = 'http://localhost:8081/api/dislike';
+                break;
+            case 'undislike':
+                url = 'http://localhost:8081/api/undislike';
+                break;
+            default:
+                return;
+        }
+
+        try {
+            const response = await fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    topic_id: parseInt(postId),
+                    user_id: parseInt(getCookie("session_id"))
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+</script>
+
+</html>

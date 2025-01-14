@@ -1,0 +1,414 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: url("../img/BackgroundgameTalk.png") no-repeat center center fixed;
+    background-size: cover;
+}
+
+.main-content {
+    flex: 1;
+}
+
+.card-box {
+    background: center / cover no-repeat url('https://static.vecteezy.com/system/resources/previews/007/994/829/non_2x/professional-esports-logo-template-for-game-team-or-gaming-tournament-free-vector.jpg');
+    height: 50vh;
+    width: 100vh;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 1%;
+    margin: 3%;
+    margin-bottom: 3%;
+    cursor: pointer;
+}
+
+.actuContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.card-box-mini {
+    border: solid 1px black;
+    background-color: #313131;
+    height: 40vh;
+    width: 30vh;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 95%;
+}
+
+.myBtn {
+    border-radius: 5px;
+    font-size: 1em;
+    color: red;
+    cursor: pointer;
+}
+
+.myBtn:hover {
+    transform: scale(1.1);
+}
+
+.text {
+    margin: 1%;
+    text-align: center;
+    color: aliceblue;
+    font-family: "Jacques Francois", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    justify-content: center;
+    width: 1230px;
+    margin-left: 200px;
+}
+
+h2 {
+    font-size: 36px;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+}
+
+.line-with-title {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 20px 0;
+    margin-bottom: 3%;
+}
+
+.line-with-title::before,
+.line-with-title::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ffffff;
+}
+
+.line-with-title::before {
+    margin-right: 10px;
+    flex: 1 1 12%;
+}
+
+.line-with-title::after {
+    margin-left: 10px;
+    flex: 1 1 88%;
+}
+
+.line-with-title span {
+    white-space: nowrap;
+}
+
+.card,
+.card-1,
+.card-2,
+.card-3,
+.card-4,
+.card-5 {
+    height: 100px;
+    width: 400px;
+    border-radius: 2px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.card {
+    background: center / cover no-repeat url("https://c4.wallpaperflare.com/wallpaper/622/676/943/3d-hd-wikipedia-3d-wallpaper-preview.jpg");
+}
+
+.card-1 {
+    background: center / cover no-repeat url("https://cdn.myportfolio.com/c7f8eecdb4b658eeca3eab87975a29f6/67dc30e0-bf8d-49d6-b213-e20f8a98d5af_rw_1920.jpg?h=f5825d65f1ff474677c0689b97583233");
+}
+
+.card-2 {
+    background: center / cover no-repeat url("https://img.freepik.com/photos-premium/sablier-feuilles-automne-fond-sombre-illustration-3d_856795-9736.jpg");
+}
+
+.card-3 {
+    background: center / cover no-repeat url("https://media.licdn.com/dms/image/D4E12AQEHwqEqvQt2kA/article-cover_image-shrink_720_1280/0/1681855909219?e=2147483647&v=beta&t=ZMcdiUqaDfPaO8so9nVxwQnWzRLbraUQ9TcteCfO9BY");
+}
+
+.card-4 {
+    background: center / cover no-repeat url("/static/img/GameController.png");
+}
+
+.card-5 {
+    background: center / cover no-repeat url("https://c0.wallpaperflare.com/preview/450/145/217/message-icon.jpg");
+}
+
+.infoContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: -600px;
+    height: 555px;
+}
+
+.cardInfo {
+    display: grid;
+    grid-template-columns: repeat(3);
+    background-color: #27272E;
+    height: 520px;
+    width: 1350px;
+    border-radius: 5px;
+}
+
+.one {
+    grid-column: 1/3;
+    grid-row: 1/2;
+}
+
+.two {
+    grid-column: 1/3;
+    grid-row: 2/3;
+}
+
+.three {
+    grid-column: 1/3;
+    grid-row: 3/4;
+}
+
+.four {
+    grid-column: 3/4;
+    grid-row: 1/3;
+    background: center / cover no-repeat url("https://i.jeuxactus.com/datas/accessoires/p/s/ps5/xl/ps5-artwork-646f0fbe5c6df.jpg");
+    height: 360px;
+}
+
+[class^="one"],
+[class^="two"],
+[class^="three"],
+.five {
+    height: 170px;
+}
+
+[class^="two"],
+[class^="three"] {
+    margin-top: -20px;
+}
+
+.five {
+    grid-column: 3/4;
+    grid-row: 3/4;
+}
+
+.card-img,
+.card-img-1,
+.card-img-2 {
+    height: 160px;
+    width: auto;
+    margin: 10px 10px 0px;
+}
+
+.title {
+    color: aliceblue;
+    font-family: "Jacques Francois", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.info-title {
+    color: aliceblue;
+    font-family: "Jacques Francois", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 24px;
+    -webkit-text-stroke-width: 0.6px;
+    -webkit-text-stroke-color: rgb(119, 119, 119);
+}
+
+.info-body {
+    color: rgb(176, 176, 176);
+    font-family: "Jacques Francois", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+@media screen and (max-width: 1200px) {
+    .container {
+        grid-template-columns: repeat(2, 1fr);
+        width: 820px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .card-box {
+        width: 90vw;
+        height: 30vh;
+    }
+
+    .card-box-mini {
+        width: 40vw;
+        height: 20vh;
+    }
+
+    .card,
+    .card-1,
+    .card-2,
+    .card-3,
+    .card-4,
+    .card-5 {
+        width: 90vw;
+    }
+
+    .cardInfo {
+        width: 90vw;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .infoContainer {
+        margin-bottom: 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+        width: 90vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .card-box {
+        width: 90vw;
+        height: 30vh;
+    }
+
+    .card-box-mini {
+        width: 80vw;
+        height: 20vh;
+    }
+
+    .card,
+    .card-1,
+    .card-2,
+    .card-3,
+    .card-4,
+    .card-5 {
+        width: 90vw;
+    }
+
+    .cardInfo {
+        width: 90vw;
+        grid-template-columns: 1fr;
+    }
+
+    .infoContainer {
+        flex-direction: column;
+        margin-bottom: 0;
+    }
+
+    .one,
+    .two,
+    .three,
+    .four,
+    .five {
+        grid-column: 1 / -1;
+    }
+
+    .four {
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    h2 {
+        font-size: 24px;
+    }
+
+    .line-with-title {
+        margin: 10px 0;
+    }
+
+    .card-box {
+        height: 20vh;
+        margin-bottom: 30px;
+        margin-top: 30px;
+    }
+
+    .card-box-mini {
+        height: 120px;
+        width: 100px;
+    }
+
+    .card-box-mini .text {
+        font-size: 7px;
+    }
+
+    .card-box-mini .myBtn {
+        height: 15px;
+        width: 80px;
+        font-size: 10px;
+    }
+
+    .container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 10px;
+        justify-content: center;
+    }
+
+    .card,
+    .card-1,
+    .card-2,
+    .card-3,
+    .card-4,
+    .card-5 {
+        height: 40px;
+        width: 45vw;
+    }
+
+    .card-5 {
+        margin-bottom: 300px;
+    }
+
+    .cardInfo {
+        height: auto;
+    }
+
+    .line-with-title {
+        margin-top: -280px;
+        font-size: 10px;
+    }
+
+    .infoContainer {
+        margin-top: 250px;
+        margin-left: 20px;
+        margin-bottom: -350px;
+    }
+
+    .one-img {
+        margin-top: -170px;
+    }
+
+    .one-img,
+    .two-img,
+    .three-img {
+        margin-left: 85px;
+    }
+
+    .one-txt,
+    .two-txt,
+    .three-txt {
+        margin: 5px;
+    }
+
+    .five {
+        opacity: 0%;
+    }
+
+    .info-title {
+        font-size: 18px;
+    }
+}

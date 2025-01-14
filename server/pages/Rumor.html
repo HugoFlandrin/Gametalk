@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Games Rumors</title>
+    <link rel="stylesheet" href="../static/css/Rumor.css">
+    <link rel="stylesheet" href="../static/css/header.css">
+    <link rel="stylesheet" href="../static/css/footer.css">
+</head>
+
+<body>
+    {{template "header"}}
+
+    <div class="main-content">
+        <h1 class="title-top">Rumors</h1>
+        <div class="cardContainer">
+
+            <div class="card">
+                <div class="content">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="rumor-container">
+        <div class="rumor-content">
+            <h1 class="title-top">Video Games Rumors</h1>
+            <div class="news"
+                style="background-image: url('https://t4.ftcdn.net/jpg/01/67/74/79/360_F_167747932_NE1da5cf9FM30QExtlFjbmk9ypItoJl2.jpg');">
+            </div>
+            <div class="rumor-grid" id="rumorGrid"></div>
+            <button id="rumorButton" onclick="fetchRumors()">New rumors</button>
+        </div>
+    </div>
+
+    {{template "footer"}}
+
+    <script type="module" src="../static/js/Rumor.js"></script>
+    <script>
+        async function fetchRumors() {
+            try {
+                const response = await fetch('http://localhost:8081/api/Rumors',
+                    {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                const rumors = await response.json();
+                const rumorGrid = document.getElementById('rumorGrid');
+                rumorGrid.innerHTML = '';
+                rumors.forEach(rumor => {
+                    const rumorCard = document.createElement('div');
+                    rumorCard.classList.add('rumor-card');
+
+                    const image = document.createElement('img');
+                    image.src = rumor.image;
+                    image.alt = "Game Image";
+
+                    const text = document.createElement('p');
+                    text.textContent = rumor.text;
+
+                    rumorCard.appendChild(image);
+                    rumorCard.appendChild(text);
+
+                    rumorGrid.appendChild(rumorCard);
+                });
+            } catch (error) {
+                console.error('Error fetching rumors:', error);
+            }
+        }
+    </script>
+</body>
+
+</html>

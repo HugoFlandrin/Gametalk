@@ -1,0 +1,163 @@
+{{ define "header" }}
+<div class="header">
+
+    <div class="left-section">
+        <img class="logoHeaderMenu" src="../static/img/menu.png" alt="menu" id="leftMenuIcon" onclick="leftMenu()">
+        <div id="leftMenu" class="left-menu hidden"></div>
+    </div>
+
+    <div class="title-logo">
+        <img class="LogoGameTalk" src="../static/img/Logo.png" alt="LogoGameTalk" onclick="redirectToHome()">
+        <h3 class="title-top" id="header-title" onclick="redirectToHome()">Game<span class="red">T</span>alk</h3>
+    </div>
+
+    <div class="right-section">
+        <form>
+            <div class="search-box">
+                <input type="text" class="txt" placeholder="Rechercher" id="searchInput">
+                <div class="btn"><img class="magnifier" src="../static/img/loupe.png" alt="search" id="search-menu" onclick="getTopics()"> </div>
+            </div>
+        </form>
+        <img class="logoHeaderUser" id="userMenuIcon" src="../static/img/user.png" alt="menu" onclick="userMenu()">
+        <div id="userMenu" class="user-menu hidden"></div>
+    </div>
+
+</div>
+
+<script>
+    function redirectToHome() {
+        window.location.href = "/";
+    }
+
+    function getTopics() {
+        const searchInput = document.getElementById("searchInput").value;
+        const encodedSearchInput = encodeURIComponent(searchInput);
+        window.location.href = `/Topics?search=${encodedSearchInput}`;
+    }
+
+    document.getElementById("searchInput").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            getTopics();
+        }
+    });
+
+    function userMenu() {
+        const menu = document.getElementById("userMenu");
+        menu.innerHTML = "";
+        
+        if (getCookie("session_id") != null && getCookie("session_id") != 0) {
+            menu.innerHTML = `
+                <img id="profile-image" src="/static/img/utilisateur.png" alt="Profile Image">
+                <button onclick="location.href='/Profile'">My profile</button>
+                <button onclick="location.href='/MyPosts'">My jobs</button>
+                <button onclick="location.href='/MyLikes'">Favourites</button>
+                <button onclick="LogOut()" style="margin-top: 100px; color: red;">Disconnect</button>
+            `;
+        } else {
+            menu.innerHTML = `
+                <button onclick="location.href='/Login'">Login</button>
+                <button onclick="location.href='/Register'">Register</button>
+            `;
+        }
+
+        const icon = document.getElementById("userMenuIcon");
+        const rect = icon.getBoundingClientRect();
+        menu.style.top = `${rect.bottom + window.scrollY + 30}px`;
+        menu.style.left = `${rect.left + window.scrollX - 125}px`;
+
+        menu.classList.toggle("hidden");
+
+        if (getCookie("session_id") != null && getCookie("session_id") != 0) {
+            fetchUsers();
+        }
+    }
+
+    function leftMenu() {
+        const menu = document.getElementById("leftMenu");
+        menu.innerHTML = "";
+        
+        if (getCookie("session_id") != null && getCookie("session_id") != 0) {
+            menu.innerHTML = `
+                <button onclick="location.href='/'">Home</button>
+                <button onclick="location.href='/PostPage'">Add a post</button>
+            `;
+        } else {
+            menu.innerHTML = `
+                <button onclick="location.href='/'">Home</button>
+            `;
+        }
+
+        const icon = document.getElementById("leftMenuIcon");
+        const rect = icon.getBoundingClientRect();
+        menu.style.top = `${rect.bottom + window.scrollY + 30}px`;
+        menu.style.left = `${rect.left + window.scrollX - 20}px`;
+
+        menu.classList.toggle("hidden");
+    }
+
+    window.onclick = function(event) {
+        if (!event.target.matches('.logoHeaderUser')) {
+            const userMenu = document.getElementsByClassName("user-menu");
+            for (let i = 0; i < userMenu.length; i++) {
+                if (!userMenu[i].classList.contains('hidden')) {
+                    userMenu[i].classList.add('hidden');
+                }
+            }
+        }
+        if (!event.target.matches('.logoHeaderMenu')) {
+            const leftMenu = document.getElementsByClassName("left-menu");
+            for (let i = 0; i < leftMenu.length; i++) {
+                if (!leftMenu[i].classList.contains('hidden')) {
+                    leftMenu[i].classList.add('hidden');
+                }
+            }
+        }
+    }
+
+    function getCookie(name) {
+        const regex = new RegExp(`(?:^|;\\s*)${name}=([^;]*)`);
+        const match = regex.exec(document.cookie);
+        return match ? match[1].replace(/\s+/g, '') : null;
+    }
+
+    function LogOut(){
+        window.location.href = "/";
+        setCookie("session_id", '', 24);
+    }
+
+    async function fetchUsers() {
+        try {
+            const sessionId = getCookie("session_id");
+            const response = await fetch('http://localhost:8081/api/getusers', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const users = await response.json();
+            users.forEach(user => {
+                if (user.id.toString() === sessionId) {
+                    const imgElement = document.getElementById('profile-image');
+                    if (user.profile_picture.String !== null) {
+                        imgElement.src = 'http://localhost:8081/' + user.profile_picture.String + '?' + new Date().getTime();
+                    } else {
+                        imgElement.src = 'static/img/utilisateur.png';
+                    }
+                }
+            });
+        } catch (error) {
+            console.error('Error fetching users:', error);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        if (getCookie("session_id") != null && getCookie("session_id") != 0) {
+            fetchUsers();
+        }
+    });
+</script>
+{{ end }}
