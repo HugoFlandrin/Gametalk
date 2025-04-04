@@ -63,6 +63,11 @@ When you see a topic you can like it or dislike it, you can also react if you cl
 
 **Important Notice :** The account recovery service (which was intended to send emails for password reset requests) has been temporarily **disabled** to prevent the exposure of sensitive API keys in the public code. The code for this feature is still accessible, but the API key has been removed for security reasons. Users will not be able to recover their accounts via email until the feature is re-enabled with a securely managed API key.
 
+# Demonstration
+
+You can see a video demonstration of the project here :
+[![Watch the video](https://img.youtube.com/vi/GSwCLQN-0iA/0.jpg)](https://www.youtube.com/embed/GSwCLQN-0iA)
+
 # Version 🗃️
 
 golang 1.21.0
