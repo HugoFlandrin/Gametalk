@@ -1,6 +1,6 @@
 # GameTalk 🪢
 
-Welcome to GameTalk ! This project is a forum for vidéogames
+Welcome to GameTalk ! This project is a forum for videogames
 
 <img src="server/static/img/README.png" width="800" />
 
